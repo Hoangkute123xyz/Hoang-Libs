@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'maven-publish'
 }
 
 android {
@@ -39,6 +40,13 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -79,4 +87,18 @@ dependencies {
 
 kapt {
     correctErrorTypes true
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.hoangkute123xyz.hoang_libs'
+            artifactId = 'android-common'
+            version = '1.0.0'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
