@@ -170,4 +170,4 @@ fun String.getNameOfPathWithoutExt(): String? {
 
 fun String.mergeToAndroidAssetsPath() = Constant.ASSET_FILE_PATH + this.removePrefix("/")
 
-fun String.appendUrlPath(other: String) = "${trim('/')}/${other.trim('/')}"
+fun String.appendUrlPath(other: String) = "${trim('/')}/${other.trim('/')}".trim('/')
