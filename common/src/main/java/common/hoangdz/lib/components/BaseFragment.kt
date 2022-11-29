@@ -34,6 +34,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseAndroidComponent
         init(savedInstanceState)
     }
 
+    fun requestBackPressed(): Boolean {
+        var i = -1
+        while (++i < childFragmentManager.fragments.size) {
+            childFragmentManager.fragments[i].let {
+                if (it is BaseFragment<*>) {
+                    if (it.requestBackPressed())
+                        return true
+                }
+            }
+        }
+        return onBackPress()
+    }
+
     override fun VB.initListener() {}
 
     override fun VB.setupViewModel() {}

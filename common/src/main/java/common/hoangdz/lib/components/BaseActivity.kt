@@ -44,8 +44,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), BaseAndroid
     @CallSuper
     override fun onBackPressed() {
         for (fragment in supportFragmentManager.fragments) {
-            if (fragment is BaseAndroidComponent<*>) {
-                if (fragment.onBackPress()) {
+            if (fragment is BaseFragment<*>) {
+                if (fragment.requestBackPressed()) {
                     return
                 }
             }
