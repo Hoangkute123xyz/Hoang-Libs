@@ -295,3 +295,6 @@ val Activity.navigationBarHeight: Int
             resources.getDimensionPixelSize(resourceId)
         } else 0
     }
+
+val Context.screenSize
+    get() = resources.displayMetrics.let { it.widthPixels to it.heightPixels }

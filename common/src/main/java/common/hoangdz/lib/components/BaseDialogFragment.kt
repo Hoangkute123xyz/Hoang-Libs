@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.Window
 import androidx.annotation.CallSuper
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
 import common.hoangdz.lib.R
-import common.hoangdz.lib.extensions.findFragment
-import common.hoangdz.lib.extensions.inflateViewBinding
-import common.hoangdz.lib.extensions.registerEventBusBy
-import common.hoangdz.lib.extensions.unRegisterEventBus
+import common.hoangdz.lib.extensions.*
+import kotlin.math.roundToInt
 
 
 /**
@@ -50,12 +49,12 @@ abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment(), BaseAndr
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val pref = context?.appInject<ContextEntryPoint>()?.pref()
-//        binding.root.layoutParams.apply {
-//            width = (((pref?.screenWidth ?: return) * 0.8).roundToInt())
-//            height = getDefaultDialogHeight().takeIf { it > 0 } ?: WRAP_CONTENT
-//            binding.root.layoutParams = this
-//        }
+        binding.root.layoutParams.apply {
+            val screenSize = context?.screenSize ?: return@apply
+            width = (screenSize.first * 0.8f).roundToInt()
+            height = getDefaultDialogHeight().takeIf { it > 0 } ?: WRAP_CONTENT
+            binding.root.layoutParams = this
+        }
         init(savedInstanceState)
     }
 
